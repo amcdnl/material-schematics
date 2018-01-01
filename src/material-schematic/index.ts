@@ -1,16 +1,28 @@
 import { Rule, SchematicContext, Tree, chain, noop } from '@angular-devkit/schematics';
 import { Schema } from './schema';
-import { materialVersion, cdkVersion } from '../utils/lib-versions';
+import { materialVersion, cdkVersion, angularVersion } from '../utils/lib-versions';
+import { getConfig } from '@schematics/angular/utility/config';
+import { addModuleToApp, addHeadLink } from '../utils/ast';
 
-
+/**
+ * Scaffolds the basics of a Angular Material application, this includes:
+ *  - Add Packages to package.json
+ *  - Adds pre-built themes to styles.ext
+ *  - Adds Browser Animation to app.momdule
+ */
 export function scaffoldMaterialSchematic(options: Schema): Rule {
   return chain([
     options.skipPackageJson ? noop() : addMaterialToPackageJson(options),
-    addImportToStyles(options)
+    addImportToStyles(options),
+    addAnimationRootConfig(),
+    // addFontsToIndex()
   ]);
 }
 
-function addMaterialToPackageJson(options: any) {
+/**
+ * Add material, cdk, annimations to package.json
+ */
+function addMaterialToPackageJson(options: Schema) {
   return (host: Tree) => {
     if (!host.exists('package.json')) return host;
 
@@ -23,15 +35,53 @@ function addMaterialToPackageJson(options: any) {
     if (!json['dependencies']['@angular/cdk']) {
       json['dependencies']['@angular/cdk'] = cdkVersion;
     }
+
     if (!json['dependencies']['@angular/material']) {
       json['dependencies']['@angular/material'] = materialVersion;
     }
+
+    if (!json['dependencies']['@angular/animations']) {
+      json['dependencies']['@angular/animations'] = angularVersion;
+    }
+
     host.overwrite('package.json', JSON.stringify(json));
+    return host;
   };
 }
 
-function addImportToStyles(options: any) {
+/**
+ * Add pre-built styles to style.ext file
+ */
+function addImportToStyles(options: Schema) {
   return (host: Tree) => {
+    const config = getConfig(host);
+    const theme = options.theme || 'indigo-pink';
+    config.apps.forEach(app => {
+      app.styles.splice(0, 0, `~@angular/material/prebuilt-themes/${theme}.css`);
+    });
+    host.overwrite('.angular-cli.json', JSON.stringify(config));
+    return host;
+  };
+}
 
+/**
+ * Add browser animation module to app.module
+ */
+function addAnimationRootConfig() {
+  return (host: Tree) => {
+    addModuleToApp(host, 'BrowserAnimationsModule', '@angular/platform-browser/animations');
+    return host;
+  };
+}
+
+/**
+ * Adds fonts to the index.ext file
+ */
+function addFontsToIndex() {
+  return (host: Tree) => {
+    // PENDING: https://github.com/inikulin/parse5/issues/229
+    addHeadLink(host, `<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">`);
+    addHeadLink(host, `<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">`);
+    return host;
   };
 }

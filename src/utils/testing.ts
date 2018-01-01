@@ -8,7 +8,7 @@ export function baseApp() {
   return baseRunner.runSchematic('application', {
     directory: '',
     name: 'app',
-    prefix: '',
+    prefix: 'app',
     sourceDir: 'src',
     inlineStyle: false,
     inlineTemplate: false,
