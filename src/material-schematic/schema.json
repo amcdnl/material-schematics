@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "scaffold-material",
+  "title": "Scaffold Material Base",
+  "type": "object",
+  "properties": {
+    "skipPackageJson": {
+      "type": "boolean",
+      "default": false,
+      "description": "Do not add materials dependencies to package.json (e.g., --skipPackageJson)"
+    }
+  },
+  "required": []
+}
