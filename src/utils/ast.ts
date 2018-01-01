@@ -42,26 +42,27 @@ export function getIndexPath(host: Tree) {
 
 export function getHeadTag(host: Tree, indexPath) {
   const buffer = host.read(indexPath);
-  const document = parse5.parse(buffer.toString()) as parse5.AST.Default.Document;
+  const document = parse5.parse(buffer.toString(),
+    { locationInfo: true }) as parse5.AST.Default.Document;
+
   let head;
   const visit = (nodes: parse5.AST.Default.Node[]) => {
     nodes.forEach(node => {
-    console.log('!!!!!', (<any>node).__location)
-    const element = <parse5.AST.Default.Element>node;
+      const element = <parse5.AST.Default.Element>node;
       if (element.tagName === 'head') {
         head = element;
+      } else {
+        if (element.childNodes) {
+          visit(element.childNodes);
+        }
       }
-
-      if (element.childNodes) {
-        visit(element.childNodes);
-      }
-    })
+    });
   };
 
   visit(document.childNodes);
 
   return {
-    position: head.__location.endOffset
+    position: head.__location.startTag.endOffset
   };
 }
 

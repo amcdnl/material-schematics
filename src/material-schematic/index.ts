@@ -15,7 +15,7 @@ export function scaffoldMaterialSchematic(options: Schema): Rule {
     options.skipPackageJson ? noop() : addMaterialToPackageJson(options),
     addImportToStyles(options),
     addAnimationRootConfig(),
-    // addFontsToIndex()
+    addFontsToIndex()
   ]);
 }
 
@@ -79,7 +79,6 @@ function addAnimationRootConfig() {
  */
 function addFontsToIndex() {
   return (host: Tree) => {
-    // PENDING: https://github.com/inikulin/parse5/issues/229
     addHeadLink(host, `<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">`);
     addHeadLink(host, `<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">`);
     return host;

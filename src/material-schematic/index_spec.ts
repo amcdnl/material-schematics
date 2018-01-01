@@ -33,7 +33,7 @@ describe('scaffold-material-schematic', () => {
     })
   });
 
-  xit('should add font links', () => {
+  fit('should add font links', () => {
     const tree = runner.runSchematic('scaffold-material', {}, appTree);
     const indexPath = getIndexPath(tree);
     const buffer = tree.read(indexPath);
