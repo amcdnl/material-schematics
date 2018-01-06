@@ -8,6 +8,9 @@ import { getConfig, getAppFromConfig } from '@schematics/angular/utility/config'
 import { normalize } from '@angular-devkit/core';
 import * as parse5 from 'parse5';
 
+/**
+ * Reads file given path and returns TypeScript source file.
+ */
 export function getSourceFile(host: Tree, path: string): ts.SourceFile {
   const buffer = host.read(path);
   if (!buffer) {
@@ -19,6 +22,9 @@ export function getSourceFile(host: Tree, path: string): ts.SourceFile {
   return source;
 }
 
+/**
+ * Adds a module to the root app module.
+ */
 export function addModuleToApp(host: Tree, module: string, src: string) {
   const config = getConfig(host);
   const app = getAppFromConfig(config, '0');
@@ -34,12 +40,18 @@ export function addModuleToApp(host: Tree, module: string, src: string) {
   host.commitUpdate(recorder);
 }
 
+/**
+ * Gets the app index.html file
+ */
 export function getIndexPath(host: Tree) {
   const config = getConfig(host);
   const app = getAppFromConfig(config, '0');
   return normalize(`/${app.root}/${app.index}`);
 }
 
+/**
+ * Parses the index.html file to get the HEAD tag position.
+ */
 export function getHeadTag(host: Tree, indexPath) {
   const buffer = host.read(indexPath);
   const document = parse5.parse(buffer.toString(),
@@ -61,11 +73,18 @@ export function getHeadTag(host: Tree, indexPath) {
 
   visit(document.childNodes);
 
+  if (!head) {
+    throw new Error('Head element not found!');
+  }
+
   return {
     position: head.__location.startTag.endOffset
   };
 }
 
+/**
+ * Adds a link to the index.html head tag
+ */
 export function addHeadLink(host: Tree, link: string) {
   const indexPath = getIndexPath(host);
   const node = getHeadTag(host, indexPath);

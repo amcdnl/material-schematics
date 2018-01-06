@@ -3,6 +3,9 @@ import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 
 const collectionPath = path.join('./node_modules/@schematics/angular/collection.json');
 
+/**
+ * Create a base app used for testing.
+ */
 export function baseApp() {
   const baseRunner = new SchematicTestRunner('schematics', collectionPath);
   return baseRunner.runSchematic('application', {
