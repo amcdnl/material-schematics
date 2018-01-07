@@ -2,7 +2,8 @@ import { Rule, SchematicContext, Tree, chain, noop } from '@angular-devkit/schem
 import { Schema } from './schema';
 import { materialVersion, cdkVersion, angularVersion } from '../utils/lib-versions';
 import { getConfig } from '@schematics/angular/utility/config';
-import { addModuleToApp, addHeadLink } from '../utils/ast';
+import { addModuleToApp } from '../utils/ast';
+import { addHeadLink } from '../utils/html';
 
 /**
  * Scaffolds the basics of a Angular Material application, this includes:

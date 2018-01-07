@@ -34,3 +34,10 @@ Future: `ng add material` --> update pkg, run schematics, etc
 ### Examples
 - https://github.com/angular/devkit/tree/master/packages/schematics/angular
 - https://github.com/nrwl/nx/blob/master/packages/schematics/src/collection/ngrx/ngrx.spec.ts
+
+### Recommendations
+- Expose `addDeclarationToNgModule` from `@schematics/angular/component`
+- Expose function to add npm packages to `package.json`
+- Add function to easily get a base app for testing
+- Add function to easily get the root app module
+- Easier way to scaffold a component
