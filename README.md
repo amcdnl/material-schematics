@@ -3,10 +3,10 @@ This repository is a basic Schematic implementation that serves as a starting po
 
 ### Running
 - `npm i material-schematics --D`
-- `ng generate materialShell --collection material-schematics`
-- `ng generate materialNav --collection material-schematics`
-- `ng generate materialTable --collection material-schematics`
-- `ng generate materialDashboard --collection material-schematics`
+- `ng generate materialShell --collection=material-schematics`
+- `ng generate materialNav --collection=material-schematics`
+- `ng generate materialTable --collection=material-schematics`
+- `ng generate materialDashboard --collection=material-schematics`
 
 ### Testing
 To test locally, install `@angular-devkit/schematics` globally and use the `schematics` command line tool. That tool acts the same as the `generate` command of the Angular CLI, but also has a debug mode.

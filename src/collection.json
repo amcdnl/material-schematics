@@ -17,19 +17,23 @@
   "schematics": {
     "materialShell": {
       "description": "Create a Material shell",
-      "factory": "./shell/index"
+      "factory": "./shell/index",
+      "schema": "./shell/schema.json"
     },
     "materialNav": {
       "description": "Create a responsive navigation component",
-      "factory": "./nav/index"
+      "factory": "./nav/index",
+      "schema": "./nav/schema.json"
     },
     "materialTable": {
       "description": "Create a table component",
-      "factory": "./table/index"
+      "factory": "./table/index",
+      "schema": "./table/schema.json"
     },
     "materialDashboard": {
       "description": "Create a dashboard component",
-      "factory": "./dashboard/index"
+      "factory": "./dashboard/index",
+      "schema": "./dashboard/schema.json"
     }
   }
 }
