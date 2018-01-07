@@ -26,6 +26,10 @@
     "materialTable": {
       "description": "Create a table component",
       "factory": "./table/index"
+    },
+    "materialDashboard": {
+      "description": "Create a dashboard component",
+      "factory": "./dashboard/index"
     }
   }
 }
