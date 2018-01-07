@@ -22,6 +22,10 @@
     "materialNav": {
       "description": "Create a responsive navigation component",
       "factory": "./nav/index"
+    },
+    "materialTable": {
+      "description": "Create a table component",
+      "factory": "./table/index"
     }
   }
 }

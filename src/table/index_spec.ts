@@ -6,7 +6,7 @@ import { getFileContent } from '@schematics/angular/utility/test';
 
 const collectionPath = path.join(__dirname, '../collection.json');
 
-describe('material-nav-schematic', () => {
+describe('material-table-schematic', () => {
   let runner: SchematicTestRunner;
   const options = {
     name: 'foo',
@@ -27,8 +27,8 @@ describe('material-nav-schematic', () => {
     runner = new SchematicTestRunner('schematics', collectionPath);
   });
 
-  it('should create nav files and add them to module', () => {
-    const tree = runner.runSchematic('materialNav', { ...options }, baseApp());
+  it('should create table files and add them to module', () => {
+    const tree = runner.runSchematic('materialTable', { ...options }, baseApp());
     const files = tree.files;
 
     expect(files.indexOf('/src/app/foo/foo.component.css')).toBeGreaterThanOrEqual(0);
@@ -41,19 +41,15 @@ describe('material-nav-schematic', () => {
     expect(moduleContent).toMatch(/declarations:\s*\[[^\]]+?,\r?\n\s+FooComponent\r?\n/m);
   });
 
-  it('should add nav imports to module', () => {
-    const tree = runner.runSchematic('materialNav', { ...options }, baseApp());
+  it('should add table imports to module', () => {
+    const tree = runner.runSchematic('materialTable', { ...options }, baseApp());
     const moduleContent = getFileContent(tree, '/src/app/app.module.ts');
 
-    expect(moduleContent).toContain('LayoutModule');
-    expect(moduleContent).toContain('MatToolbarModule');
-    expect(moduleContent).toContain('MatButtonModule');
-    expect(moduleContent).toContain('MatSidenavModule');
-    expect(moduleContent).toContain('MatIconModule');
-    expect(moduleContent).toContain('MatListModule');
+    expect(moduleContent).toContain('MatTableModule');
+    expect(moduleContent).toContain('MatPaginatorModule');
+    expect(moduleContent).toContain('MatSortModule');
 
-    expect(moduleContent).toContain(`import { LayoutModule } from '@angular/cdk/layout';`);
-    expect(moduleContent).toContain(`import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';`);
+    expect(moduleContent).toContain(`import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';`);
   });
 
 });
