@@ -24,17 +24,17 @@ export function getSourceFile(host: Tree, path: string): ts.SourceFile {
 /**
  * Import and add module to root app module.
  */
-export function addModuleToApp(host: Tree, moduleName: string, src: string) {
+export function addToRootModule(host: Tree, moduleName: string, src: string) {
   const config = getConfig(host);
   const app = getAppFromConfig(config, '0');
   const modulePath = getAppModulePath(host, app);
-  addModuleToModule(host, modulePath, moduleName, src);
+  addToModule(host, modulePath, moduleName, src);
 }
 
 /**
  * Import and add module to specific module path.
  */
-export function addModuleToModule(host: Tree, modulePath: string, moduleName: string, src: string) {
+export function addToModule(host: Tree, modulePath: string, moduleName: string, src: string) {
   const moduleSource = getSourceFile(host, modulePath);
   const changes = addImportToModule(moduleSource, modulePath, moduleName, src);
   const recorder = host.beginUpdate(modulePath);

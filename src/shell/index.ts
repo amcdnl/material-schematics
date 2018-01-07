@@ -2,7 +2,7 @@ import { Rule, SchematicContext, Tree, chain, noop } from '@angular-devkit/schem
 import { Schema } from './schema';
 import { materialVersion, cdkVersion, angularVersion } from '../utils/lib-versions';
 import { getConfig } from '@schematics/angular/utility/config';
-import { addModuleToApp } from '../utils/ast';
+import { addToRootModule } from '../utils/ast';
 import { addHeadLink } from '../utils/html';
 
 /**
@@ -73,7 +73,7 @@ function addImportToStyles(options: Schema) {
  */
 function addAnimationRootConfig() {
   return (host: Tree) => {
-    addModuleToApp(host, 'BrowserAnimationsModule', '@angular/platform-browser/animations');
+    addToRootModule(host, 'BrowserAnimationsModule', '@angular/platform-browser/animations');
     return host;
   };
 }

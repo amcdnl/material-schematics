@@ -1,7 +1,7 @@
 import { chain, Rule, noop, Tree, SchematicContext } from '@angular-devkit/schematics';
 import { Schema } from './schema';
 import componentSchematic from '@schematics/angular/component';
-import { addModuleToModule } from '../utils/ast';
+import { addToModule } from '../utils/ast';
 import { addHeadLink } from '../utils/html';
 
 /**
@@ -22,11 +22,11 @@ export default function(options: Schema): Rule {
 function addNavModulesToModule(options: Schema) {
   return (host: Tree) => {
     const modulePath = options.module;
-    addModuleToModule(host, modulePath, 'MatGridListModule', '@angular/material');
-    addModuleToModule(host, modulePath, 'MatCardModule', '@angular/material');
-    addModuleToModule(host, modulePath, 'MatMenuModule', '@angular/material');
-    addModuleToModule(host, modulePath, 'MatIconModule', '@angular/material');
-    addModuleToModule(host, modulePath, 'MatButtonModule', '@angular/material');
+    addToModule(host, modulePath, 'MatGridListModule', '@angular/material');
+    addToModule(host, modulePath, 'MatCardModule', '@angular/material');
+    addToModule(host, modulePath, 'MatMenuModule', '@angular/material');
+    addToModule(host, modulePath, 'MatIconModule', '@angular/material');
+    addToModule(host, modulePath, 'MatButtonModule', '@angular/material');
     return host;
   };
 }

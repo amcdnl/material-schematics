@@ -1,7 +1,7 @@
 import { chain, Rule, noop, Tree, SchematicContext } from '@angular-devkit/schematics';
 import { Schema } from './schema';
 import componentSchematic from '@schematics/angular/component';
-import { addModuleToModule } from '../utils/ast';
+import { addToModule } from '../utils/ast';
 
 /**
  * Scaffolds a new navigation component.
@@ -20,12 +20,12 @@ export default function(options: Schema): Rule {
 function addNavModulesToModule(options: Schema) {
   return (host: Tree) => {
     const modulePath = options.module;
-    addModuleToModule(host, modulePath, 'LayoutModule', '@angular/cdk/layout');
-    addModuleToModule(host, modulePath, 'MatToolbarModule', '@angular/material');
-    addModuleToModule(host, modulePath, 'MatButtonModule', '@angular/material');
-    addModuleToModule(host, modulePath, 'MatSidenavModule', '@angular/material');
-    addModuleToModule(host, modulePath, 'MatIconModule', '@angular/material');
-    addModuleToModule(host, modulePath, 'MatListModule', '@angular/material');
+    addToModule(host, modulePath, 'LayoutModule', '@angular/cdk/layout');
+    addToModule(host, modulePath, 'MatToolbarModule', '@angular/material');
+    addToModule(host, modulePath, 'MatButtonModule', '@angular/material');
+    addToModule(host, modulePath, 'MatSidenavModule', '@angular/material');
+    addToModule(host, modulePath, 'MatIconModule', '@angular/material');
+    addToModule(host, modulePath, 'MatListModule', '@angular/material');
     return host;
   };
 }
