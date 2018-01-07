@@ -1,9 +1,10 @@
-import { Rule, SchematicContext, Tree, chain, noop } from '@angular-devkit/schematics';
+import { Rule, SchematicContext, Tree, chain, noop, SchematicsException } from '@angular-devkit/schematics';
 import { Schema } from './schema';
 import { materialVersion, cdkVersion, angularVersion } from '../utils/lib-versions';
 import { getConfig } from '@schematics/angular/utility/config';
 import { addToRootModule } from '../utils/ast';
 import { addHeadLink } from '../utils/html';
+import { addPackageToPackageJson } from '../utils/package';
 
 /**
  * Scaffolds the basics of a Angular Material application, this includes:
@@ -25,27 +26,9 @@ export default function(options: Schema): Rule {
  */
 function addMaterialToPackageJson(options: Schema) {
   return (host: Tree) => {
-    if (!host.exists('package.json')) return host;
-
-    const sourceText = host.read('package.json')!.toString('utf-8');
-    const json = JSON.parse(sourceText);
-    if (!json['dependencies']) {
-      json['dependencies'] = {};
-    }
-
-    if (!json['dependencies']['@angular/cdk']) {
-      json['dependencies']['@angular/cdk'] = cdkVersion;
-    }
-
-    if (!json['dependencies']['@angular/material']) {
-      json['dependencies']['@angular/material'] = materialVersion;
-    }
-
-    if (!json['dependencies']['@angular/animations']) {
-      json['dependencies']['@angular/animations'] = angularVersion;
-    }
-
-    host.overwrite('package.json', JSON.stringify(json, null, 2));
+    addPackageToPackageJson(host, 'dependencies', '@angular/cdk', cdkVersion);
+    addPackageToPackageJson(host, 'dependencies', '@angular/material', materialVersion);
+    addPackageToPackageJson(host, 'dependencies', '@angular/animations', angularVersion);
     return host;
   };
 }
@@ -56,11 +39,17 @@ function addMaterialToPackageJson(options: Schema) {
 function addImportToStyles(options: Schema) {
   return (host: Tree) => {
     const config = getConfig(host);
-    const theme = options.theme || 'indigo-pink';
     config.apps.forEach(app => {
-      const has = app.styles.find((s: string) => s.indexOf('@angular/material/prebuilt-themes') > -1);
-      if (!has) {
-        app.styles.splice(0, 0, `~@angular/material/prebuilt-themes/${theme}.css`);
+      const theme = `~@angular/material/prebuilt-themes/${options.theme}.css`;
+      const hasCurrentTheme = app.styles.find((s: string) => s.indexOf(theme) > -1);
+      const hasOtherTheme = app.styles.find((s: string) => s.indexOf('@angular/material/prebuilt-themes') > -1);
+
+      if (!hasCurrentTheme && !hasOtherTheme) {
+        app.styles.splice(0, 0, theme);
+      }
+
+      if (hasOtherTheme) {
+        throw new SchematicsException(`Another theme is already defined.`);
       }
     });
     host.overwrite('.angular-cli.json', JSON.stringify(config, null, 2));

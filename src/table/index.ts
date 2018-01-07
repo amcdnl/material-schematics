@@ -2,6 +2,7 @@ import { chain, Rule, noop, Tree, SchematicContext } from '@angular-devkit/schem
 import { Schema } from './schema';
 import componentSchematic from '@schematics/angular/component';
 import { addToModule } from '../utils/ast';
+import { findModuleFromOptions } from '@schematics/angular/utility/find-module';
 
 /**
  * Scaffolds a new table component.
@@ -19,7 +20,7 @@ export default function(options: Schema): Rule {
  */
 function addNavModulesToModule(options: Schema) {
   return (host: Tree) => {
-    const modulePath = options.module;
+    const modulePath = findModuleFromOptions(host, options);
     addToModule(host, modulePath, 'MatTableModule', '@angular/material');
     addToModule(host, modulePath, 'MatPaginatorModule', '@angular/material');
     addToModule(host, modulePath, 'MatSortModule', '@angular/material');

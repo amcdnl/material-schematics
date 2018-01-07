@@ -3,6 +3,7 @@ import { Schema } from './schema';
 import componentSchematic from '@schematics/angular/component';
 import { addToModule } from '../utils/ast';
 import { addHeadLink } from '../utils/html';
+import { findModuleFromOptions } from '@schematics/angular//utility/find-module';
 
 /**
  * Scaffolds a new navigation component.
@@ -21,7 +22,7 @@ export default function(options: Schema): Rule {
  */
 function addNavModulesToModule(options: Schema) {
   return (host: Tree) => {
-    const modulePath = options.module;
+    const modulePath = findModuleFromOptions(host, options);
     addToModule(host, modulePath, 'MatGridListModule', '@angular/material');
     addToModule(host, modulePath, 'MatCardModule', '@angular/material');
     addToModule(host, modulePath, 'MatMenuModule', '@angular/material');
