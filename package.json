@@ -1,13 +1,15 @@
 {
   "name": "material-schematics",
-  "version": "1.0.0",
-  "description": "A schematics",
+  "version": "1.0.1",
+  "description": "Material Schematics for Angular CLI",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "npm run build && jasmine **/*_spec.js"
   },
   "keywords": [
-    "schematics"
+    "schematics",
+    "angular",
+    "angular-cli"
   ],
   "author": "",
   "license": "MIT",
@@ -16,10 +18,12 @@
     "@angular-devkit/core": "^0.0.22",
     "@angular-devkit/schematics": "^0.0.42",
     "@schematics/angular": "^0.1.11",
-    "@types/jasmine": "^2.6.0",
-    "@types/node": "^8.0.31",
-    "jasmine": "^2.8.0",
     "parse5": "^3.0.3",
     "typescript": "^2.5.2"
+  },
+  "devDependencies": {
+    "@types/jasmine": "^2.6.0",
+    "@types/node": "^8.0.31",
+    "jasmine": "^2.8.0"
   }
 }
