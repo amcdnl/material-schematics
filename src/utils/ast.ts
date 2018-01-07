@@ -39,8 +39,10 @@ export function addModuleToModule(host: Tree, modulePath: string, moduleName: st
   const changes = addImportToModule(moduleSource, modulePath, moduleName, src);
   const recorder = host.beginUpdate(modulePath);
 
-  changes.forEach((change: InsertChange) => {
-    recorder.insertLeft(change.pos, change.toAdd);
+  changes.forEach((change) => {
+    if (change instanceof InsertChange) {
+      recorder.insertLeft(change.pos, change.toAdd);
+    }
   });
 
   host.commitUpdate(recorder);
