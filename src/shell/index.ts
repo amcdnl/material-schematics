@@ -1,7 +1,7 @@
 import { Rule, SchematicContext, Tree, chain, noop, SchematicsException } from '@angular-devkit/schematics';
 import { Schema } from './schema';
 import { materialVersion, cdkVersion, angularVersion } from '../utils/lib-versions';
-import { getConfig } from '@schematics/angular/utility/config';
+import { getConfig } from '../utils/devkit-utils/config';
 import { addToRootModule } from '../utils/ast';
 import { addHeadLink } from '../utils/html';
 import { addPackageToPackageJson } from '../utils/package';

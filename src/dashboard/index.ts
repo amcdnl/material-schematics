@@ -2,7 +2,7 @@ import { chain, Rule, noop, Tree, SchematicContext, externalSchematic } from '@a
 import { Schema } from './schema';
 import { addToModule } from '../utils/ast';
 import { addHeadLink } from '../utils/html';
-import { findModuleFromOptions } from '@schematics/angular/utility/find-module';
+import { findModuleFromOptions } from '../utils/devkit-utils/find-module';
 
 /**
  * Scaffolds a new navigation component.

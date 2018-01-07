@@ -1,7 +1,7 @@
 import { chain, Rule, noop, Tree, SchematicContext, externalSchematic } from '@angular-devkit/schematics';
 import { Schema } from './schema';
 import { addToModule } from '../utils/ast';
-import { findModuleFromOptions } from '@schematics/angular/utility/find-module';
+import { findModuleFromOptions } from '../utils/devkit-utils/find-module';
 
 /**
  * Scaffolds a new navigation component.

@@ -1,10 +1,10 @@
 import { SchematicsException } from '@angular-devkit/schematics';
 import { Tree } from '@angular-devkit/schematics';
 import * as ts from 'typescript';
-import { addImportToModule } from '@schematics/angular/utility/ast-utils';
-import { getAppModulePath } from '@schematics/angular/utility/ng-ast-utils';
-import { InsertChange } from '@schematics/angular/utility/change';
-import { getConfig, getAppFromConfig } from '@schematics/angular/utility/config';
+import { addImportToModule } from './devkit-utils/ast-utils';
+import { getAppModulePath } from './devkit-utils/ng-ast-utils';
+import { InsertChange } from './devkit-utils/change';
+import { getConfig, getAppFromConfig } from './devkit-utils/config';
 import { normalize } from '@angular-devkit/core';
 
 /**
