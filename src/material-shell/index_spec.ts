@@ -8,7 +8,7 @@ import { getIndexPath } from '../utils/ast';
 
 const collectionPath = path.join(__dirname, '../collection.json');
 
-describe('scaffold-material-schematic', () => {
+describe('material-shell-schematic', () => {
   let runner: SchematicTestRunner;
   let appTree: Tree;
 
@@ -18,7 +18,7 @@ describe('scaffold-material-schematic', () => {
   });
 
   it('should update package.json', () => {
-    const tree = runner.runSchematic('scaffold-material', {}, appTree);
+    const tree = runner.runSchematic('materialShell', {}, appTree);
     const packageJson = JSON.parse(getFileContent(tree, '/package.json'));
 
     expect(packageJson.dependencies['@angular/material']).toBeDefined();
@@ -26,15 +26,15 @@ describe('scaffold-material-schematic', () => {
   });
 
   it('should add default theme', () => {
-    const tree = runner.runSchematic('scaffold-material', {}, appTree);
+    const tree = runner.runSchematic('materialShell', {}, appTree);
     const config = getConfig(tree);
     config.apps.forEach(app => {
       expect(app.styles).toContain('~@angular/material/prebuilt-themes/indigo-pink.css');
     })
   });
 
-  fit('should add font links', () => {
-    const tree = runner.runSchematic('scaffold-material', {}, appTree);
+  it('should add font links', () => {
+    const tree = runner.runSchematic('materialShell', {}, appTree);
     const indexPath = getIndexPath(tree);
     const buffer = tree.read(indexPath);
     const indexSrc = buffer.toString();

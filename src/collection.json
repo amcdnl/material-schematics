@@ -15,9 +15,9 @@
   // The factory is required, except when using the extends field. The the factory can
   // overwrite the extended schematic factory.
   "schematics": {
-    "scaffold-material": {
-      "description": "An material scaffold schematic",
-      "factory": "./material-schematic/index#scaffoldMaterialSchematic"
+    "materialShell": {
+      "description": "Create a Material shell",
+      "factory": "./material-shell/index"
     }
   }
 }

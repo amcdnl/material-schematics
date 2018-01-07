@@ -10,7 +10,7 @@ import { addModuleToApp, addHeadLink } from '../utils/ast';
  *  - Adds pre-built themes to styles.ext
  *  - Adds Browser Animation to app.momdule
  */
-export function scaffoldMaterialSchematic(options: Schema): Rule {
+export default function(options: Schema): Rule {
   return chain([
     options.skipPackageJson ? noop() : addMaterialToPackageJson(options),
     addImportToStyles(options),
