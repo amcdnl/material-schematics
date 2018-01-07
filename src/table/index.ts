@@ -1,7 +1,7 @@
-import { chain, Rule, noop, Tree, SchematicContext } from '@angular-devkit/schematics';
+import { chain, Rule, noop, Tree, SchematicContext, externalSchematic } from '@angular-devkit/schematics';
 import { Schema } from './schema';
-import componentSchematic from '@schematics/angular/component';
 import { addToModule } from '../utils/ast';
+import { findModuleFromOptions } from '@schematics/angular/utility/find-module';
 
 /**
  * Scaffolds a new table component.
@@ -9,7 +9,7 @@ import { addToModule } from '../utils/ast';
  */
 export default function(options: Schema): Rule {
   return chain([
-    componentSchematic(options),
+    externalSchematic('@schematics/angular', 'component', options),
     options.skipImport ? noop() : addNavModulesToModule(options)
   ]);
 }
@@ -19,9 +19,10 @@ export default function(options: Schema): Rule {
  */
 function addNavModulesToModule(options: Schema) {
   return (host: Tree) => {
-    addToModule(host, options.module, 'MatTableModule', '@angular/material');
-    addToModule(host, options.module, 'MatPaginatorModule', '@angular/material');
-    addToModule(host, options.module, 'MatSortModule', '@angular/material');
+    const modulePath = findModuleFromOptions(host, options);
+    addToModule(host, modulePath, 'MatTableModule', '@angular/material');
+    addToModule(host, modulePath, 'MatPaginatorModule', '@angular/material');
+    addToModule(host, modulePath, 'MatSortModule', '@angular/material');
     return host;
   };
 }

@@ -1,8 +1,8 @@
-import { chain, Rule, noop, Tree, SchematicContext } from '@angular-devkit/schematics';
+import { chain, Rule, noop, Tree, SchematicContext, externalSchematic } from '@angular-devkit/schematics';
 import { Schema } from './schema';
-import componentSchematic from '@schematics/angular/component';
 import { addToModule } from '../utils/ast';
 import { addHeadLink } from '../utils/html';
+import { findModuleFromOptions } from '@schematics/angular/utility/find-module';
 
 /**
  * Scaffolds a new navigation component.
@@ -10,7 +10,7 @@ import { addHeadLink } from '../utils/html';
  */
 export default function(options: Schema): Rule {
   return chain([
-    componentSchematic(options),
+    externalSchematic('@schematics/angular', 'component', options),
     addChartsRefToIndex(),
     options.skipImport ? noop() : addNavModulesToModule(options)
   ]);
@@ -21,11 +21,12 @@ export default function(options: Schema): Rule {
  */
 function addNavModulesToModule(options: Schema) {
   return (host: Tree) => {
-    addToModule(host, options.module, 'MatGridListModule', '@angular/material');
-    addToModule(host, options.module, 'MatCardModule', '@angular/material');
-    addToModule(host, options.module, 'MatMenuModule', '@angular/material');
-    addToModule(host, options.module, 'MatIconModule', '@angular/material');
-    addToModule(host, options.module, 'MatButtonModule', '@angular/material');
+    const modulePath = findModuleFromOptions(host, options);
+    addToModule(host, modulePath, 'MatGridListModule', '@angular/material');
+    addToModule(host, modulePath, 'MatCardModule', '@angular/material');
+    addToModule(host, modulePath, 'MatMenuModule', '@angular/material');
+    addToModule(host, modulePath, 'MatIconModule', '@angular/material');
+    addToModule(host, modulePath, 'MatButtonModule', '@angular/material');
     return host;
   };
 }
