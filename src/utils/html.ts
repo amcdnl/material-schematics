@@ -6,9 +6,8 @@ import { InsertChange } from '@schematics/angular/utility/change';
 /**
  * Parses the index.html file to get the HEAD tag position.
  */
-export function getHeadTag(host: Tree, indexPath) {
-  const buffer = host.read(indexPath);
-  const document = parse5.parse(buffer.toString(),
+export function getHeadTag(host: Tree, src: string) {
+  const document = parse5.parse(src,
     { locationInfo: true }) as parse5.AST.Default.Document;
 
   let head;
@@ -41,10 +40,17 @@ export function getHeadTag(host: Tree, indexPath) {
  */
 export function addHeadLink(host: Tree, link: string) {
   const indexPath = getIndexPath(host);
-  const node = getHeadTag(host, indexPath);
+  const buffer = host.read(indexPath);
+  if (!buffer) {
+    throw new SchematicsException(`Could not find file for path: ${indexPath}`);
+  }
 
-  const chng = new InsertChange(indexPath, node.position, link);
-  const recorder = host.beginUpdate(indexPath);
-  recorder.insertLeft(chng.pos, chng.toAdd);
-  host.commitUpdate(recorder);
+  const src = buffer.toString();
+  if (src.indexOf(link) === -1) {
+    const node = getHeadTag(host, src);
+    const chng = new InsertChange(indexPath, node.position, link);
+    const recorder = host.beginUpdate(indexPath);
+    recorder.insertLeft(chng.pos, chng.toAdd);
+    host.commitUpdate(recorder);
+  }
 }

@@ -23,5 +23,6 @@ function addNavModulesToModule(options: Schema) {
     addModuleToModule(host, modulePath, 'MatTableModule', '@angular/material');
     addModuleToModule(host, modulePath, 'MatPaginatorModule', '@angular/material');
     addModuleToModule(host, modulePath, 'MatSortModule', '@angular/material');
+    return host;
   };
 }

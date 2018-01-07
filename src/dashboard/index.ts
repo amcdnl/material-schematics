@@ -27,9 +27,13 @@ function addNavModulesToModule(options: Schema) {
     addModuleToModule(host, modulePath, 'MatMenuModule', '@angular/material');
     addModuleToModule(host, modulePath, 'MatIconModule', '@angular/material');
     addModuleToModule(host, modulePath, 'MatButtonModule', '@angular/material');
+    return host;
   };
 }
 
+/**
+ * Adds chat reference to index
+ */
 function addChartsRefToIndex() {
   return (host: Tree) => {
     addHeadLink(host, `<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>`);

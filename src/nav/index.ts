@@ -26,5 +26,6 @@ function addNavModulesToModule(options: Schema) {
     addModuleToModule(host, modulePath, 'MatSidenavModule', '@angular/material');
     addModuleToModule(host, modulePath, 'MatIconModule', '@angular/material');
     addModuleToModule(host, modulePath, 'MatListModule', '@angular/material');
+    return host;
   };
 }
