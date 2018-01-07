@@ -22,12 +22,12 @@ export default function(options: Schema): Rule {
  */
 function addNavModulesToModule(options: Schema) {
   return (host: Tree) => {
-    const modulePath = findModuleFromOptions(host, options);
-    addToModule(host, modulePath, 'MatGridListModule', '@angular/material');
-    addToModule(host, modulePath, 'MatCardModule', '@angular/material');
-    addToModule(host, modulePath, 'MatMenuModule', '@angular/material');
-    addToModule(host, modulePath, 'MatIconModule', '@angular/material');
-    addToModule(host, modulePath, 'MatButtonModule', '@angular/material');
+    options.module = findModuleFromOptions(host, options);
+    addToModule(host, options.module, 'MatGridListModule', '@angular/material');
+    addToModule(host, options.module, 'MatCardModule', '@angular/material');
+    addToModule(host, options.module, 'MatMenuModule', '@angular/material');
+    addToModule(host, options.module, 'MatIconModule', '@angular/material');
+    addToModule(host, options.module, 'MatButtonModule', '@angular/material');
     return host;
   };
 }

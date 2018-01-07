@@ -20,13 +20,13 @@ export default function(options: Schema): Rule {
  */
 function addNavModulesToModule(options: Schema) {
   return (host: Tree) => {
-    const modulePath = findModuleFromOptions(host, options);
-    addToModule(host, modulePath, 'LayoutModule', '@angular/cdk/layout');
-    addToModule(host, modulePath, 'MatToolbarModule', '@angular/material');
-    addToModule(host, modulePath, 'MatButtonModule', '@angular/material');
-    addToModule(host, modulePath, 'MatSidenavModule', '@angular/material');
-    addToModule(host, modulePath, 'MatIconModule', '@angular/material');
-    addToModule(host, modulePath, 'MatListModule', '@angular/material');
+    options.module = findModuleFromOptions(host, options);
+    addToModule(host, options.module, 'LayoutModule', '@angular/cdk/layout');
+    addToModule(host, options.module, 'MatToolbarModule', '@angular/material');
+    addToModule(host, options.module, 'MatButtonModule', '@angular/material');
+    addToModule(host, options.module, 'MatSidenavModule', '@angular/material');
+    addToModule(host, options.module, 'MatIconModule', '@angular/material');
+    addToModule(host, options.module, 'MatListModule', '@angular/material');
     return host;
   };
 }

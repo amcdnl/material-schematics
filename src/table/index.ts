@@ -20,10 +20,10 @@ export default function(options: Schema): Rule {
  */
 function addNavModulesToModule(options: Schema) {
   return (host: Tree) => {
-    const modulePath = findModuleFromOptions(host, options);
-    addToModule(host, modulePath, 'MatTableModule', '@angular/material');
-    addToModule(host, modulePath, 'MatPaginatorModule', '@angular/material');
-    addToModule(host, modulePath, 'MatSortModule', '@angular/material');
+    options.module = findModuleFromOptions(host, options);
+    addToModule(host, options.module, 'MatTableModule', '@angular/material');
+    addToModule(host, options.module, 'MatPaginatorModule', '@angular/material');
+    addToModule(host, options.module, 'MatSortModule', '@angular/material');
     return host;
   };
 }
