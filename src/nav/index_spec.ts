@@ -27,7 +27,7 @@ describe('material-nav-schematic', () => {
     runner = new SchematicTestRunner('schematics', collectionPath);
   });
 
-  fit('should create nav files and add them to module', () => {
+  it('should create nav files and add them to module', () => {
     const tree = runner.runSchematic('materialNav', { ...options }, baseApp());
     const files = tree.files;
 
