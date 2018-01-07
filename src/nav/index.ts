@@ -9,10 +9,13 @@ import { findModuleFromOptions } from '@schematics/angular/utility/find-module';
  * Internally it bootstraps the base component schematic
  */
 export default function(options: Schema): Rule {
-  return chain([
-    componentSchematic(options),
-    options.skipImport ? noop() : addNavModulesToModule(options)
-  ]);
+  return (host: Tree, context: SchematicContext) => {
+    options.module = findModuleFromOptions(host, options);
+    return chain([
+      componentSchematic(options),
+      options.skipImport ? noop() : addNavModulesToModule(options)
+    ])(host, context);
+  }
 }
 
 /**
@@ -20,7 +23,6 @@ export default function(options: Schema): Rule {
  */
 function addNavModulesToModule(options: Schema) {
   return (host: Tree) => {
-    options.module = findModuleFromOptions(host, options);
     addToModule(host, options.module, 'LayoutModule', '@angular/cdk/layout');
     addToModule(host, options.module, 'MatToolbarModule', '@angular/material');
     addToModule(host, options.module, 'MatButtonModule', '@angular/material');
