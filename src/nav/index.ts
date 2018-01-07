@@ -10,7 +10,7 @@ import { addModuleToModule } from '../utils/ast';
 export default function(options: Schema): Rule {
   return chain([
     componentSchematic(options),
-    addNavModulesToModule(options)
+    options.skipImport ? noop() : addNavModulesToModule(options)
   ]);
 }
 
