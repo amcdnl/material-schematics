@@ -60,7 +60,7 @@ function addImportToStyles(options: Schema) {
     config.apps.forEach(app => {
       app.styles.splice(0, 0, `~@angular/material/prebuilt-themes/${theme}.css`);
     });
-    host.overwrite('.angular-cli.json', JSON.stringify(config));
+    host.overwrite('.angular-cli.json', JSON.stringify(config, null, 2));
     return host;
   };
 }
