@@ -45,7 +45,7 @@ function addMaterialToPackageJson(options: Schema) {
       json['dependencies']['@angular/animations'] = angularVersion;
     }
 
-    host.overwrite('package.json', JSON.stringify(json));
+    host.overwrite('package.json', JSON.stringify(json, null, 2));
     return host;
   };
 }
