@@ -18,22 +18,26 @@
     "materialShell": {
       "description": "Create a Material shell",
       "factory": "./shell/index",
-      "schema": "./shell/schema.json"
+      "schema": "./shell/schema.json",
+      "aliases": [ "material-shell" ]
     },
     "materialNav": {
       "description": "Create a responsive navigation component",
       "factory": "./nav/index",
-      "schema": "./nav/schema.json"
+      "schema": "./nav/schema.json",
+      "aliases": [ "material-nav" ]
     },
     "materialTable": {
       "description": "Create a table component",
       "factory": "./table/index",
-      "schema": "./table/schema.json"
+      "schema": "./table/schema.json",
+      "aliases": [ "material-table" ]
     },
     "materialDashboard": {
       "description": "Create a dashboard component",
       "factory": "./dashboard/index",
-      "schema": "./dashboard/schema.json"
+      "schema": "./dashboard/schema.json",
+      "aliases": [ "material-dashboard" ]
     }
   }
 }
