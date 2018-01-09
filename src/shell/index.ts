@@ -40,7 +40,7 @@ function addImportToStyles(options: Schema) {
   return (host: Tree) => {
     const config = getConfig(host);
     config.apps.forEach(app => {
-      const theme = `~@angular/material/prebuilt-themes/${options.theme}.css`;
+      const theme = `../node_modules/@angular/material/prebuilt-themes/${options.theme}.css`;
       const hasCurrentTheme = app.styles.find((s: string) => s.indexOf(theme) > -1);
       const hasOtherTheme = app.styles.find((s: string) => s.indexOf('@angular/material/prebuilt-themes') > -1);
 
