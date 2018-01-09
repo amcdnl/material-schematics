@@ -1,6 +1,6 @@
 {
   "name": "material-schematics",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "Material Schematics for Angular CLI",
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -15,7 +15,9 @@
     "src/**/*.json",
     "src/**/*.d.ts",
     "src/**/*.ts",
+    "src/**/*.__styleext__",
     "src/**/*.js",
+    "src/**/*.html",
     "src/**/*.map"
   ],
   "author": "",

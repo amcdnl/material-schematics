@@ -1,4 +1,4 @@
-import { chain, Rule, noop, Tree, SchematicContext, externalSchematic } from '@angular-devkit/schematics';
+import { chain, Rule, noop, Tree, SchematicContext } from '@angular-devkit/schematics';
 import { Schema } from './schema';
 import { addToModule } from '../utils/ast';
 import { findModuleFromOptions } from '../utils/devkit-utils/find-module';
@@ -10,8 +10,7 @@ import { buildComponent } from '../utils/devkit-utils/component';
  */
 export default function(options: Schema): Rule {
   return chain([
-    // externalSchematic('@schematics/angular', 'component', options),
-    buildComponent(options),
+    buildComponent({ ...options }),
     options.skipImport ? noop() : addNavModulesToModule(options)
   ]);
 }
